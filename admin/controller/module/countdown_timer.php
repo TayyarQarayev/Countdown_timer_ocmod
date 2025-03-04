@@ -106,6 +106,10 @@ class CountdownTimer extends \Opencart\System\Engine\Controller
             $json['error']['warning'] = $this->language->get('error_permission');
         }
 
+        // $log = new \Opencart\System\Library\Log('countdown_debug.log');
+        // Admin paneldən gələn `end_time` dəyərini log-a yaz
+        // $log->write('Admin Panelindən gələn məlumatlar: ' . json_encode($this->request->post));
+
         if (!$json) {
             $this->load->model('setting/module');
 
@@ -114,6 +118,8 @@ class CountdownTimer extends \Opencart\System\Engine\Controller
             } else {
                 $this->model_setting_module->editModule($this->request->post['module_id'], $this->request->post);
             }
+
+            $this->config->set('module_countdown_timer_id', $this->request->post['module_id']);
 
             $json['success'] = $this->language->get('text_success');
         }

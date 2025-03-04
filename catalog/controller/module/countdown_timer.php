@@ -12,6 +12,9 @@ class CountdownTimer extends \Opencart\System\Engine\Controller
         if ($module_id) {
             $this->load->model('setting/module');
             $module_info = $this->model_setting_module->getModule($module_id);
+        } else {
+            $log = new \Opencart\System\Library\Log('countdown_debug.log');
+            $log->write('module_id = null -------------');
         }
 
         $data['start_time'] = $module_info['start_time'] ?? '';
