@@ -1,0 +1,30 @@
+<h3>{{ heading_title }}</h3>
+<p>{{ text_countdown }} <span id="countdown"></span></p>
+<div id="countdown_timer"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var endTime = new Date("{{ end_time }}").getTime();
+
+        function updateCountdown() {
+            var now = new Date().getTime();
+            var distance = endTime - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown_timer").innerHTML = "Geri sayım bitdi!";
+                clearInterval(countdownInterval);
+                return;
+            }
+
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown_timer").innerHTML = 
+                days + " gün " + hours + " saat " + minutes + " dəqiqə " + seconds + " saniyə ";
+        }
+
+        updateCountdown();
+        var countdownInterval = setInterval(updateCountdown, 1000);
+    });
+</script>
