@@ -76,13 +76,13 @@ class CountdownTimer extends \Opencart\System\Engine\Controller
             $data['module_id'] = 0;
         }
 
-        if (isset($tis->request->get['start_time'])) {
+        if (isset($this->request->get['start_time'])) {
             $data['start_time'] = $this->request->get['start_time'];
         } else {
             $data['start_time'] = '';
         }
 
-        if (isset($tis->request->get['end_time'])) {
+        if (isset($this->request->get['end_time'])) {
             $data['end_time'] = $this->request->get['end_time'];
         } else {
             $data['end_time'] = '';
@@ -119,7 +119,9 @@ class CountdownTimer extends \Opencart\System\Engine\Controller
                 $this->model_setting_module->editModule($this->request->post['module_id'], $this->request->post);
             }
 
-            $this->config->set('module_countdown_timer_id', $this->request->post['module_id']);
+            $this->load->model('setting/setting');
+            $this->model_setting_setting->editSetting('module_countdown_timer', ['module_countdown_timer_id' => $this->request->post['module_id']]);
+
 
             $json['success'] = $this->language->get('text_success');
         }
